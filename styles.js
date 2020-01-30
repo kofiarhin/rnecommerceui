@@ -8,7 +8,29 @@ const colors = {
 const styles = StyleSheet.create({
 
     container: {
-        backgroundColor: "pink"
+        paddingHorizontal: 20
+    },
+    options: {
+        marginTop: 20
+    },
+    btn: {
+        marginRight: 20,
+        padding: 20,
+        borderRadius: 30
+    },
+    btnText: {
+        fontSize: 20
+    },
+    btnActive: {
+        backgroundColor: "white",
+        borderWidth: 1,
+        borderColor: "rgba(0, 0, 0, .5)"
+    },
+    btnInactive: {
+        backgroundColor: "#5C77FF"
+    },
+    inactiveBtnText: {
+        color: "white"
     }
 })
 

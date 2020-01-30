@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Text, View, Button, TextInput, Dimensions, ScrollView } from 'react-native';
-import { BoxShadow } from "react-native-shadow";
+import ElevatedView from "react-native-elevated-view";
+import styles from "../../../styles";
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import Options from "../options/options";
 
 export default class extends Component {
     render() {
@@ -9,54 +12,39 @@ export default class extends Component {
         return (
 
 
-            <View style={{
-                marginTop: 10
-            }}>
+            <ScrollView style={styles.container}>
+                <View style={{
+                    marginTop: 10
+                }}>
 
-                {/* search input */}
-                <View>
-                    <TextInput placeholder="Search Product" style={{
-                        fontSize: 25,
-                        paddingHorizontal: 20,
-                        borderBottomWidth: 2,
-                        borderBottomColor: "rgba(0,0, 0, 0.4)"
+                    {/* search input */}
+                    <View style={{
+                        marginBottom: 10
+                    }}>
+                        <ElevatedView
 
-                    }} />
+                            elevation={1}
+                        >
+                            <TextInput placeholder="Search Product" style={{
+                                fontSize: 25,
+                                paddingHorizontal: 20,
+
+                            }} />
+                        </ElevatedView>
+                    </View>
+
+
+                    {/* options */}
+                    <View>
+                        <Options />
+                    </View>
+
+
+
+
+
                 </View>
-
-                {/*  list of products */}
-                <ScrollView>
-                    <View style={{
-                        height: 300,
-                        backgroundColor: "black",
-                        marginBottom: 20
-                    }}>
-                        <Text>item 1</Text>
-                    </View>
-                    <View style={{
-                        height: 300,
-                        backgroundColor: "black",
-                        marginBottom: 20
-                    }}>
-                        <Text>item 1</Text>
-                    </View>
-
-                    <View style={{
-                        height: 300,
-                        backgroundColor: "black",
-                        marginBottom: 20
-                    }}>
-                        <Text>item 1</Text>
-                    </View>
-
-
-
-
-
-
-
-                </ScrollView>
-            </View>
+            </ScrollView>
 
         )
     }

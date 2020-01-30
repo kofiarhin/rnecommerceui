@@ -87,7 +87,7 @@ const BottomNav = createBottomTabNavigator({
         screen: MessageScreen,
         navigationOptions: ({ navigation }) => ({
             tabBarIcon: ({ focused, tintColor }) => (
-                <FontAwesome name="envelope-o" size={30} color={tintColor} />
+                <Entypo name="mail" size={30} color={tintColor} />
             )
         })
     },
