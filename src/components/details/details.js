@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Image, ScroillView } from 'react-native'
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { Text, View, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native'
 import SimilarProduct from "./similarProduct"
 export default class details extends Component {
 
@@ -44,9 +43,9 @@ export default class details extends Component {
 
                 </View>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => this.handleAdd(item)}>
 
-                    <Text style={[styles.btn, styles.btnText]} onPress={() => this.handleAdd(item)}> Add To Cart</Text>
+                    <Text style={[styles.btn, styles.btnText]} > Add To Cart</Text>
                 </TouchableOpacity>
 
             </View>

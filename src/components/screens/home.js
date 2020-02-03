@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Text, View, Button, TextInput, Dimensions, ScrollView, Image } from 'react-native';
+import { Text, View, Button, TextInput, Dimensions, ScrollView, Image, TouchableOpacity } from 'react-native';
 import ElevatedView from "react-native-elevated-view";
 import styles from "../../../styles";
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import Options from "../options/options";
 
 import data from "../../../data";

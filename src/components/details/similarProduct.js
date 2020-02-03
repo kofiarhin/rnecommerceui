@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, ScrollView, Image } from 'react-native'
+import { Text, View, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native'
 import data from "./../../../data";
 
 export default class similarProduct extends Component {
@@ -22,13 +22,15 @@ export default class similarProduct extends Component {
 
             return data.map(item => {
 
-                return <View>
-                    <Image source={{ uri: item.cover }} style={{
-                        width: 80,
-                        height: 80,
-                        marginRight: 20
-                    }} />
-                </View>
+                return <TouchableOpacity>
+                    <View>
+                        <Image source={{ uri: item.cover }} style={{
+                            width: 80,
+                            height: 80,
+                            marginRight: 20
+                        }} />
+                    </View>
+                </TouchableOpacity>
             })
         }
     }
