@@ -9,7 +9,7 @@ import SettingsScreen from "./src/components/screens/settings";
 import SearchScreen from "./src/components/screens/search";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Entypo from "react-native-vector-icons/Entypo"
-import HeaderLeft from "./src/components/widgets/headerLeft";
+import DetailsScreen from "./src/components/details/details";
 import styles from "./styles"
 import {
     TouchableOpacity
@@ -27,12 +27,24 @@ const HomeStack = createStackNavigator({
         screen: HomeScreen,
         navigationOptions: ({ navigation }) => ({
             title: "EscoShop",
+            headerLeft: () => <View style={{
+                paddingLeft: 10
+            }}>
+                <FontAwesome name="bars" size={30} color="rgba(0,0,0, 0.6)" />
+            </View>,
 
         })
 
     },
     Search: {
         screen: SearchScreen
+    },
+    Details: {
+        screen: DetailsScreen,
+        navigationOptions: ({ navigation }) => ({
+            title: "Details Screen",
+            headeLeft: null
+        })
     }
 }, {
     // headerLayoutPreset: "center ",
@@ -47,11 +59,7 @@ const HomeStack = createStackNavigator({
             color: "rgba(0, 0, 0, .7)"
         },
 
-        headerLeft: () => <View style={{
-            paddingLeft: 10
-        }}>
-            <FontAwesome name="bars" size={30} color="rgba(0,0,0, 0.6)" />
-        </View>,
+
 
         headerRight: () => <View style={{
             paddingRight: 10

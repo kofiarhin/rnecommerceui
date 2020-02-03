@@ -39,19 +39,19 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
     itemCoverContainer: {
-        width: "50%"
+        width: "40%"
     },
     itemCover: {
         width: "100%",
         height: 250
     },
     content: {
-        width: "50%",
+        width: "60%",
         paddingHorizontal: 10
     },
     view: {
         backgroundColor: colors.blue,
-        paddingVertical: 10
+        paddingVertical: 8
 
     },
 
@@ -61,17 +61,20 @@ const styles = StyleSheet.create({
     },
     viewText: {
         color: "white",
-        alignSelf: "center"
+        alignSelf: "center",
+        fontSize: 16
     },
     desc: {
         marginBottom: 20
     },
     name: {
-        fontSize: 25
+        fontSize: 20,
+        fontWeight: "bold"
     },
     price: {
-        fontSize: 22,
-        color: colors.red
+        fontSize: 20,
+        color: colors.red,
+        fontWeight: "bold"
     }
 })
 

@@ -25,6 +25,11 @@ export default class extends Component {
         })
     }
 
+    handleDetails = item => {
+
+        this.props.navigation.navigate("Details", item)
+    }
+
     renderItems = items => {
 
         if (items && items.length > 0) {
@@ -36,35 +41,36 @@ export default class extends Component {
                     {/* cover */}
                     <View style={styles.itemCoverContainer}>
                         <Image source={{ uri: item.cover }}
-
                             style={styles.itemCover}
                             resizeMode="cover"
                         />
                     </View>
-
                     {/* end cover */}
 
                     {/* content */}
                     <View style={styles.content}>
 
                         <View style={styles.desc}>
-                            <Text style={[styles.text, styles.name]}> {item.name}</Text>
+                            <Text numberOfLines={1} style={[styles.text, styles.name]}> {item.name}</Text>
                             <Text style={[styles.text, styles.price]}> ${item.price}</Text>
                             <Text style={[styles.text, styles.color]}> {item.color}</Text>
 
                         </View>
 
-                        <TouchableOpacity style={styles.view} onPress={() => console.log("go to product details")}>
-                            <Text style={[styles.text, styles.viewText]}> View Product</Text>
-                        </TouchableOpacity>
+                        <View>
+
+                            <TouchableOpacity style={styles.view} onPress={() => console.log("go to product details")}>
+                                <Text style={[styles.text, styles.viewText]} onPress={() => this.handleDetails(item)}> View Product</Text>
+                            </TouchableOpacity>
+                        </View>
 
                     </View>
-
                     {/* end content */}
                 </View>
             })
         }
     }
+
     render() {
 
 
@@ -90,6 +96,7 @@ export default class extends Component {
 
                             }} />
                         </ElevatedView>
+
                     </View>
 
 
