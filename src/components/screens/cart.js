@@ -6,30 +6,17 @@ import _ from "lodash";
 import { FlatList } from 'react-native-gesture-handler';
 import { StackRouter } from 'react-navigation';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { NavigationEvents } from 'react-navigation';
 
 export default class cart extends Component {
 
     state = {
-
         cart: ""
     }
 
     componentDidMount() {
 
-
-
-        AsyncStorage.getItem("cart").then(response => {
-
-            const cart = JSON.parse(response);
-
-            if (!_.isEmpty(cart)) {
-
-                this.setState({
-
-                    cart
-                })
-            }
-        });
+        console.log('testing mic');
 
 
     }
@@ -41,18 +28,21 @@ export default class cart extends Component {
         if (cart) {
 
             cart.splice(index, 1);
-            AsyncStorage.setItem('cart', JSON.stringify(cart));
+            AsyncStorage.setItem('cart', JSON.stringify(cart)).then(() => {
 
-            this.setState({
-                cart
-            })
+                console.log(cart);
+                this.setState({
+                    cart
+                })
+
+            });
+
         }
 
 
     }
 
-    renderCart = cart => {
-
+    renderCart = () => {
 
         if (!_.isEmpty(cart)) {
 
@@ -83,6 +73,13 @@ export default class cart extends Component {
             />
         }
     }
+
+    loadCart = async () => {
+
+        this.renderCart(this.state.cart);
+
+
+    }
     render() {
         return (
             <ScrollView>
@@ -93,10 +90,9 @@ export default class cart extends Component {
                         textAlign: "center"
                     }]}> Your Cart  </Text>
                     <View>
-                        {this.renderCart(this.props.navigation.state)}
+                        {this.renderCart(this.state.cart)}
                     </View>
-
-
+                    <NavigationEvents onDidFocus={() => this.loadCart()} />
                 </View>
             </ScrollView>
         )
