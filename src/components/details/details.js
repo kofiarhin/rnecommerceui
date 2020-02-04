@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native'
 import SimilarProduct from "./similarProduct"
+import AsyncStorage from '@react-native-community/async-storage';
+
 export default class details extends Component {
 
     state = {
@@ -9,21 +11,55 @@ export default class details extends Component {
         cart: ""
     }
 
-    handleAdd = item => {
 
-        console.log(item)
-    }
+    async  componentDidMount() {
 
-    componentDidMount() {
+
+        const strCart = await AsyncStorage.getItem("cart");
+
+        const cart = JSON.parse(strCart);
+
 
         const item = this.props.navigation.state.params;
 
         if (item) {
             this.setState({
-                item
+                item,
+                cart
             })
         }
     }
+
+
+
+
+    handleAdd = item => {
+
+        //get cart from state
+        const cart = this.state.cart;
+        //add item to cart
+        cart.push(item);
+        //convert cart to string
+        const strCart = JSON.stringify(cart);
+
+        //store cart in session
+        AsyncStorage.setItem('cart', strCart);
+        this.props.navigation.navigate("Cart");
+        //set state of new cart
+        // this.setState({
+        //     cart
+        // }, () => {
+
+        //     this.props.navigation.navigate('Cart', cart);
+        // })
+
+        // console.log("cart list", this.state.cart);
+
+
+
+    }
+
+
 
     renderItem = item => {
 
@@ -49,12 +85,15 @@ export default class details extends Component {
                 </TouchableOpacity>
 
             </View>
+            {/*  list of similar products */}
             <SimilarProduct />
         </View>
     }
     render() {
 
         // console.log("??????", this.state.item)
+
+        console.log("details of cart", this.state.cart);
         return (
             <ScrollView>
                 <View>

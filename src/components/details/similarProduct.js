@@ -20,9 +20,9 @@ export default class similarProduct extends Component {
 
         if (data) {
 
-            return data.map(item => {
+            return data.map((item, index) => {
 
-                return <TouchableOpacity>
+                return <TouchableOpacity key={index}>
                     <View>
                         <Image source={{ uri: item.cover }} style={{
                             width: 80,

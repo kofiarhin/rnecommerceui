@@ -6,16 +6,29 @@ import Options from "../options/options";
 
 import data from "../../../data";
 import _ from "lodash";
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 
 export default class extends Component {
 
     state = {
-        data: ""
+        data: "",
+        cart: []
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+
+
+        //get  cart data
+        const strCart = await AsyncStorage.getItem('cart');
+
+        const cart = JSON.parse(strCart);
+
+        this.setState({
+            cart
+        })
+
 
         if (!_.isEmpty(data)) { }
 
