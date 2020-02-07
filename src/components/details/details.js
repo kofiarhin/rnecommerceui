@@ -2,23 +2,24 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native'
 import SimilarProduct from "./similarProduct"
 import AsyncStorage from '@react-native-community/async-storage';
+import _ from "lodash";
 
 export default class details extends Component {
 
     state = {
 
         item: "",
-        cart: ""
+        cart: []
     }
 
 
     async  componentDidMount() {
 
 
+        // get cart from session storage
         const strCart = await AsyncStorage.getItem("cart");
 
         const cart = JSON.parse(strCart);
-
 
         const item = this.props.navigation.state.params;
 
@@ -31,30 +32,42 @@ export default class details extends Component {
     }
 
 
-
-
     handleAdd = item => {
 
-        //get cart from state
-        const cart = this.state.cart;
-        //add item to cart
-        cart.push(item);
-        //convert cart to string
-        const strCart = JSON.stringify(cart);
+        let cart = this.state.cart;
 
-        //store cart in session
-        AsyncStorage.setItem('cart', strCart);
-        this.props.navigation.navigate("Cart");
-        //set state of new cart
-        // this.setState({
-        //     cart
-        // }, () => {
+        if (!_.isEmpty(cart)) {
 
-        //     this.props.navigation.navigate('Cart', cart);
-        // })
+            cart.push(item);
+            this.props.navigation.navigate("Cart")
+        } else {
+            cart = [];
 
-        // console.log("cart list", this.state.cart);
+            cart.push(item);
 
+            AsyncStorage.setItem("cart", JSON.stringify(cart)).then(response => {
+
+                console.log("item added to cart");
+
+                this.setState({
+                    cart
+                })
+            })
+
+        }
+
+
+
+        // //get cart from state
+        // const cart = this.state.cart;
+        // //add item to cart
+        // cart.push(item);
+        // //convert cart to string
+        // const strCart = JSON.stringify(cart);
+
+        // //store cart in session
+        // AsyncStorage.setItem('cart', strCart);
+        // this.props.navigation.navigate("Cart");
 
 
     }
@@ -74,17 +87,17 @@ export default class details extends Component {
                     <Text style={[styles.text, styles.description]}> {item.description} </Text>
                 </View>
 
-
                 <View>
 
                 </View>
 
+                {/* add item cta */}
                 <TouchableOpacity onPress={() => this.handleAdd(item)}>
-
                     <Text style={[styles.btn, styles.btnText]} > Add To Cart</Text>
                 </TouchableOpacity>
 
             </View>
+
             {/*  list of similar products */}
             <SimilarProduct />
         </View>
