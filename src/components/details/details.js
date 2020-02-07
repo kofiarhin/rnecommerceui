@@ -3,8 +3,9 @@ import { Text, View, StyleSheet, Image, ScrollView, TouchableOpacity } from 'rea
 import SimilarProduct from "./similarProduct"
 import AsyncStorage from '@react-native-community/async-storage';
 import _ from "lodash";
+import { connect } from "react-redux";
 
-export default class details extends Component {
+class Details extends Component {
 
     state = {
 
@@ -34,28 +35,8 @@ export default class details extends Component {
 
     handleAdd = item => {
 
-        let cart = this.state.cart;
 
-        if (!_.isEmpty(cart)) {
-
-            cart.push(item);
-            this.props.navigation.navigate("Cart")
-        } else {
-            cart = [];
-
-            cart.push(item);
-
-            AsyncStorage.setItem("cart", JSON.stringify(cart)).then(response => {
-
-                console.log("item added to cart");
-
-                this.setState({
-                    cart
-                })
-            })
-
-        }
-
+        console.log("add item", item);
 
 
         // //get cart from state
@@ -117,6 +98,8 @@ export default class details extends Component {
     }
 }
 
+
+
 const colors = {
     blue: "#5C77FF"
 }
@@ -169,3 +152,11 @@ const styles = StyleSheet.create({
         textAlign: "center"
     }
 })
+
+const mapStateToProps = state => {
+    return {
+        cartData: state.cart
+    }
+}
+
+export default connect(mapStateToProps)(Details)

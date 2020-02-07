@@ -3,38 +3,26 @@ import { Text, View, Button, TextInput, Dimensions, ScrollView, Image, Touchable
 import ElevatedView from "react-native-elevated-view";
 import styles from "../../../styles";
 import Options from "../options/options";
+import { connect } from "react-redux";
 
 import data from "../../../data";
 import _ from "lodash";
-import AsyncStorage from '@react-native-community/async-storage';
+
+import { getProducts } from "../../../actions";
 
 
-
-export default class extends Component {
+class Home extends Component {
 
     state = {
         data: "",
         cart: []
     }
 
-    async componentDidMount() {
+    componentDidMount() {
 
+        // load products
+        this.props.dispatch(getProducts())
 
-        //get  cart data
-        const strCart = await AsyncStorage.getItem('cart');
-
-        const cart = JSON.parse(strCart);
-
-        this.setState({
-            cart
-        })
-
-
-        if (!_.isEmpty(data)) { }
-
-        this.setState({
-            data
-        })
     }
 
     handleDetails = item => {
@@ -85,6 +73,7 @@ export default class extends Component {
 
     render() {
 
+        console.log(this.props)
 
         return (
 
@@ -125,9 +114,7 @@ export default class extends Component {
                     <View style={styles.itemsWrapper}>
 
 
-                        {this.renderItems(this.state.data)}
-
-
+                        {this.renderItems(this.props.products.productData)}
 
                     </View>
 
@@ -138,3 +125,12 @@ export default class extends Component {
         )
     }
 }
+
+function mapStateToProps(state) {
+
+    return {
+        products: state.products
+    }
+}
+
+export default connect(mapStateToProps)(Home)
