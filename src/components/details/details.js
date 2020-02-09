@@ -4,6 +4,7 @@ import SimilarProduct from "./similarProduct"
 import AsyncStorage from '@react-native-community/async-storage';
 import _ from "lodash";
 import { connect } from "react-redux";
+import { addToCart, getCart, storeItem } from "../../../actions";
 
 class Details extends Component {
 
@@ -14,20 +15,15 @@ class Details extends Component {
     }
 
 
-    async  componentDidMount() {
+    componentDidMount() {
 
 
-        // get cart from session storage
-        const strCart = await AsyncStorage.getItem("cart");
+        this.props.dispatch(getCart());
 
-        const cart = JSON.parse(strCart);
-
-        const item = this.props.navigation.state.params;
-
-        if (item) {
+        const item = this.props.navigation.state.params
+        if (!_.isEmpty(item)) {
             this.setState({
                 item,
-                cart
             })
         }
     }
@@ -35,21 +31,20 @@ class Details extends Component {
 
     handleAdd = item => {
 
+        let cart = [];
+        //get cart
+        this.props.dispatch(getCart());
 
-        console.log("add item", item);
+        if (this.props.cartData.cartData) {
+
+            cart = JSON.parse(this.props.cartData.cartData);
+        }
+
+        this.props.dispatch(storeItem(cart, item));
+        this.props.dispatch(getCart());
 
 
-        // //get cart from state
-        // const cart = this.state.cart;
-        // //add item to cart
-        // cart.push(item);
-        // //convert cart to string
-        // const strCart = JSON.stringify(cart);
-
-        // //store cart in session
-        // AsyncStorage.setItem('cart', strCart);
-        // this.props.navigation.navigate("Cart");
-
+        this.props.navigation.navigate("Cart");
 
     }
 
@@ -61,7 +56,10 @@ class Details extends Component {
             <View style={styles.itemUnit}>
                 <View>
                     <View>
-                        <Image source={{ uri: item.cover }} style={styles.cover} resizeMode="contain" />
+                        <Image source={{ uri: item.cover }} style={{
+                            width: "100%",
+                            height: 300
+                        }} resizeMode="contain" />
                     </View>
                     <Text style={[styles.text, styles.name]}>  {item.name} </Text>
                     <Text style={[styles.text, styles.price]}> ${item.price}</Text>
@@ -85,9 +83,7 @@ class Details extends Component {
     }
     render() {
 
-        // console.log("??????", this.state.item)
-
-        console.log("details of cart", this.state.cart);
+        // console.log(this.state) 
         return (
             <ScrollView>
                 <View>
@@ -150,7 +146,8 @@ const styles = StyleSheet.create({
 
         color: "white",
         textAlign: "center"
-    }
+    },
+
 })
 
 const mapStateToProps = state => {
