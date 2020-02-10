@@ -8,6 +8,7 @@ class Cart extends Component {
 
     componentDidMount() {
         this.props.dispatch(getCart());
+        console.log('render page')
     }
 
 
