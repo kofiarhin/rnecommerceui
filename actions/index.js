@@ -39,7 +39,7 @@ export function addToCart(item) {
 }
 
 
-export function storeItem(cart, item) {
+export function storeItem(cart = [], item) {
 
     if (item) {
 
@@ -47,11 +47,14 @@ export function storeItem(cart, item) {
 
     }
 
+
+
     //convert cart to string
-    let strCart = JSON.stringify(cart);
+    let strCart = JSON.stringify(cart)
+
 
     AsyncStorage.setItem('cart', strCart);
-
+    getCart()
     return {
         type: "STORE_ITEM_TO_CART",
         payload: {
@@ -84,6 +87,8 @@ export function clearCart() {
 
     AsyncStorage.removeItem('cart');
 
+    getCart();
+
     return {
 
         type: "CLEAR_CART",
@@ -95,3 +100,19 @@ export function clearCart() {
 
 }
 
+export function saveCart(cart) {
+
+    let strCart = JSON.stringify(cart);
+
+    AsyncStorage.setItem("cart", strCart);
+
+    getCart();
+
+    return {
+
+        type: "SAVE_CART",
+        payload: {
+            success: true
+        }
+    }
+}

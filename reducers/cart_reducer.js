@@ -1,6 +1,9 @@
 export default function (state = {}, action) {
 
     switch (action.type) {
+
+        case "SAVE_CART":
+            return { ...state, cartSave: action.payload }
         case "CLEAR_CART":
             return { ...state, cartClear: action.payload }
         case "STORE_ITEM_TO_CART":
