@@ -47,14 +47,11 @@ export function storeItem(cart = [], item) {
 
     }
 
-
-
     //convert cart to string
     let strCart = JSON.stringify(cart)
 
 
     AsyncStorage.setItem('cart', strCart);
-    getCart()
     return {
         type: "STORE_ITEM_TO_CART",
         payload: {
@@ -102,12 +99,17 @@ export function clearCart() {
 
 export function saveCart(cart) {
 
+    //type of cart is array
+
+    //convert cart to string
     let strCart = JSON.stringify(cart);
 
+    //save cart
     AsyncStorage.setItem("cart", strCart);
 
-    getCart();
+    getCart()
 
+    //return progress info
     return {
 
         type: "SAVE_CART",

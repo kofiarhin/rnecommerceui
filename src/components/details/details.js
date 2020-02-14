@@ -4,22 +4,20 @@ import SimilarProduct from "./similarProduct"
 import AsyncStorage from '@react-native-community/async-storage';
 import _ from "lodash";
 import { connect } from "react-redux";
-import { addToCart, getCart, storeItem } from "../../../actions";
+import { addToCart, getCart, storeItem, clearCart, saveCart } from "../../../actions";
 
 class Details extends Component {
 
     state = {
 
         item: "",
-        cart: []
     }
 
 
     componentDidMount() {
 
 
-        this.props.dispatch(getCart());
-
+        this.props.dispatch(getCart())
         const item = this.props.navigation.state.params
         if (!_.isEmpty(item)) {
             this.setState({
@@ -32,19 +30,22 @@ class Details extends Component {
     handleAdd = item => {
 
         let cart = [];
-        //get cart
+
         this.props.dispatch(getCart());
 
-        if (this.props.cartData.cartData) {
+        let data = this.props.cartData.cartData;
 
-            cart = JSON.parse(this.props.cartData.cartData);
+        if (!_.isEmpty(data)) {
+
+            cart = JSON.parse(data);
         }
 
-        this.props.dispatch(storeItem(cart, item));
+        cart.push(item);
+
+        this.props.dispatch(saveCart(cart));
         this.props.dispatch(getCart());
 
-
-        this.props.navigation.navigate("Cart");
+        this.props.navigation.navigate('Cart')
 
     }
 

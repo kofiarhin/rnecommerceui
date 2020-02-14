@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import data from "../../../data";
 import _ from "lodash";
 
-import { getProducts } from "../../../actions";
+import { getProducts, getCart } from "../../../actions";
 
 
 class Home extends Component {
@@ -22,6 +22,7 @@ class Home extends Component {
 
         // load products
         this.props.dispatch(getProducts())
+        this.props.dispatch(getCart())
 
     }
 
