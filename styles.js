@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
     itemUnit: {
         flexDirection: "row",
         padding: 20,
-        marginBottom: 20,
         alignItems: "center"
     },
     itemCoverContainer: {
