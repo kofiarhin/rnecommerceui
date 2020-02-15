@@ -44,7 +44,7 @@ class Home extends Component {
                     <View style={styles.itemCoverContainer}>
                         <Image source={{ uri: item.cover }}
                             style={styles.itemCover}
-                            resizeMode="cover"
+                            resizeMode="contain"
                         />
                     </View>
                     {/* end cover */}
