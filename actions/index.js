@@ -118,3 +118,18 @@ export function saveCart(cart) {
         }
     }
 }
+
+
+export function searchProduct(data, search) {
+
+    let items = data.filter(item => {
+
+        return (item.name.toLowerCase().includes(search.toLowerCase()))
+    });
+
+    return {
+
+        type: 'SEARCH_PRODUCT',
+        payload: items
+    }
+}

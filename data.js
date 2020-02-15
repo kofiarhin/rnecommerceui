@@ -79,7 +79,6 @@ const data = [
         description: " print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book. It usually begins with"
     },
 
-
     {
         id: 9,
         name: "iPhone 11",
@@ -88,6 +87,15 @@ const data = [
         color: 'white',
         description: " print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book. It usually begins with"
     },
+
+    {
+        id: 10,
+        name: "Samsung Television",
+        cover: "https://images.samsung.com/is/image/samsung/au_UA49K5500AWXXY_006_Front_black?$L1-Thumbnail$",
+        price: "300",
+        color: 'black',
+        description: " print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book. It usually begins with"
+    }
 
 
 

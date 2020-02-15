@@ -4,8 +4,9 @@ import { connect } from "react-redux";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import _ from "lodash";
 import mainStyles from "../../../styles";
+import Feather from "react-native-vector-icons/Feather"
 
-import { getCart, saveCart } from "../../../actions";
+import { getCart, saveCart, clearCart } from "../../../actions";
 import { TSpan } from 'react-native-svg';
 
 class cart extends Component {
@@ -46,9 +47,20 @@ class cart extends Component {
         return sum;
     }
 
-    renderCart = data => {
+    handleOrder = data => {
 
-        console.log(data)
+        if (!_.isEmpty(data)) {
+
+            let cart = JSON.parse(data);
+
+            this.props.dispatch(clearCart());
+            this.props.dispatch(getCart());
+
+            this.props.navigation.navigate("Status");
+        }
+    }
+
+    renderCart = data => {
 
         if (!_.isEmpty(data)) {
 
@@ -101,21 +113,27 @@ class cart extends Component {
                         backgroundColor: "#5C77FF",
                         width: "100%",
                         padding: 20
-                    }}>
+                    }} onPress={() => this.handleOrder(this.props.cartData.cartData)}>
                         <Text style={[mainStyles.text, {
                             textAlign: "center",
                             fontSize: 20,
                             color: 'white'
-                        }]}> Proceed to Checkout</Text>
+                        }]}> Place Order</Text>
                     </TouchableOpacity>
                 </View >
             } else {
 
                 return <View>
+
+                    <FontAwesome name="shopping-cart" size={80} color="rgba(0, 0, 0, .4)" style={{
+                        textAlign: "center",
+                        marginBottom: 20
+                    }} />
+
                     <Text style={{
                         fontSize: 20,
                         textAlign: "center",
-                        color: "red"
+                        color: "rgba(0, 0, 0, .4)"
                     }}> Your cart is empty </Text>
                 </View>
             }

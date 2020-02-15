@@ -19,6 +19,9 @@ const styles = StyleSheet.create({
         padding: 20,
         borderRadius: 30
     },
+    btnMain: {
+        backgroundColor: colors.blue
+    },
     btnText: {
         fontSize: 20
     },

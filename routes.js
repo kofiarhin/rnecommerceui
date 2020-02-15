@@ -1,5 +1,5 @@
 import React from "react";
-import { createAppContainer } from "react-navigation";
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack"
 import { createBottomTabNavigator } from "react-navigation-tabs"
 import HomeScreen from "./src/components/screens/home";
@@ -10,6 +10,7 @@ import SearchScreen from "./src/components/screens/search";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Entypo from "react-native-vector-icons/Entypo"
 import DetailsScreen from "./src/components/details/details";
+import StatusScreen from "./src/components/screens/status";
 import styles from "./styles"
 import {
     TouchableOpacity
@@ -19,6 +20,22 @@ import {
     Text,
     View
 } from "react-native";
+
+//switchStack
+
+const SwitchStack = createSwitchNavigator({
+
+    Status: {
+        screen: StatusScreen,
+        navigationOptions: ({ navigation }) => ({
+            headerTitle: null
+        })
+    },
+    Search: {
+        screen: SearchScreen
+    },
+
+})
 
 // stack navigator
 const HomeStack = createStackNavigator({
@@ -36,8 +53,11 @@ const HomeStack = createStackNavigator({
         })
 
     },
-    Search: {
-        screen: SearchScreen
+    SwitchStack: {
+        screen: SwitchStack,
+        navigationOptions: () => ({
+            header: null
+        })
     },
     Details: {
         screen: DetailsScreen,
@@ -45,7 +65,8 @@ const HomeStack = createStackNavigator({
             title: "Details Screen",
             headeLeft: null
         })
-    }
+    },
+
 }, {
     // headerLayoutPreset: "center ",
     defaultNavigationOptions: ({ navigation }) => ({

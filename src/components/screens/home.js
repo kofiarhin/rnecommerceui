@@ -8,7 +8,8 @@ import { connect } from "react-redux";
 import data from "../../../data";
 import _ from "lodash";
 
-import { getProducts, getCart } from "../../../actions";
+import { getProducts, getCart, searchProduct } from "../../../actions";
+import { timing } from 'react-native-reanimated';
 
 
 class Home extends Component {
@@ -72,6 +73,17 @@ class Home extends Component {
         }
     }
 
+    handleSearch = search => {
+        //search for a product
+        if (search !== "") {
+
+            this.props.dispatch(searchProduct(data, search))
+        } else {
+
+            this.props.dispatch(getProducts())
+        }
+    }
+
     render() {
 
 
@@ -95,7 +107,7 @@ class Home extends Component {
                                 fontSize: 25,
                                 paddingHorizontal: 20,
 
-                            }} />
+                            }} onChangeText={search => this.handleSearch(search)} />
                         </ElevatedView>
 
                     </View>
@@ -108,14 +120,9 @@ class Home extends Component {
                         <Options />
                     </View>
 
-
                     {/* list of items */}
-
                     <View style={styles.itemsWrapper}>
-
-
                         {this.renderItems(this.props.products.productData)}
-
                     </View>
 
 
