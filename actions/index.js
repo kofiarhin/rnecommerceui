@@ -133,3 +133,37 @@ export function searchProduct(data, search) {
         payload: items
     }
 }
+
+export function loginUser(userData) {
+
+    // console.log(userData);
+
+    AsyncStorage.setItem('user', userData);
+
+    return {
+        type: "LOGIN_USER",
+        payload: {
+            success: true
+        }
+    }
+}
+
+export function getUser() {
+
+    let request = AsyncStorage.getItem('user').then(response => response);
+    return {
+        type: "GET_USER",
+        payload: request
+    }
+}
+
+export function logoutUser() {
+
+    AsyncStorage.removeItem("user");
+
+    return {
+
+        type: "LOGOUT_USER",
+        payload: null
+    }
+}

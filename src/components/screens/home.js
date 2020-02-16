@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, Button, TextInput, Dimensions, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { Text, View, Button, TextInput, Dimensions, ScrollView, Image, TouchableOpacity, AsyncStorage } from 'react-native';
 import ElevatedView from "react-native-elevated-view";
 import styles from "../../../styles";
 import Options from "../options/options";
@@ -20,6 +20,9 @@ class Home extends Component {
     }
 
     componentDidMount() {
+
+        //check if user is logged in
+        // this.props.navigation.navigate("Login")
 
         // load products
         this.props.dispatch(getProducts())
@@ -86,7 +89,7 @@ class Home extends Component {
 
     render() {
 
-
+        console.log(this.props)
         return (
 
 
@@ -136,7 +139,8 @@ class Home extends Component {
 function mapStateToProps(state) {
 
     return {
-        products: state.products
+        products: state.products,
+        userData: state.user
     }
 }
 

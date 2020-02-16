@@ -11,6 +11,8 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Entypo from "react-native-vector-icons/Entypo"
 import DetailsScreen from "./src/components/details/details";
 import StatusScreen from "./src/components/screens/status";
+import PaymentScreen from "./src/components/screens/payment"
+import LoginScreen from "./src/components/screens/login";
 import styles from "./styles"
 import {
     TouchableOpacity
@@ -34,11 +36,22 @@ const SwitchStack = createSwitchNavigator({
     Search: {
         screen: SearchScreen
     },
+    Payment: {
+        screen: PaymentScreen
+    }
 
 })
 
 // stack navigator
 const HomeStack = createStackNavigator({
+
+    Login: {
+
+        screen: LoginScreen,
+        navigationOptions: ({ navigation }) => ({
+            header: null
+        })
+    },
 
     Home: {
         screen: HomeScreen,
@@ -53,6 +66,8 @@ const HomeStack = createStackNavigator({
         })
 
     },
+
+
     SwitchStack: {
         screen: SwitchStack,
         navigationOptions: () => ({
