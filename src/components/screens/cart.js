@@ -6,7 +6,7 @@ import _ from "lodash";
 import mainStyles from "../../../styles";
 import Feather from "react-native-vector-icons/Feather"
 
-import { getCart, saveCart, clearCart } from "../../../actions";
+import { getCart, saveCart, clearCart, getUser } from "../../../actions";
 import { TSpan } from 'react-native-svg';
 
 class cart extends Component {
@@ -14,6 +14,8 @@ class cart extends Component {
     componentDidMount() {
 
         this.props.dispatch(getCart());
+        this.props.dispatch(getUser());
+
     }
 
     handleDelete = (item, index) => {
@@ -61,6 +63,7 @@ class cart extends Component {
     }
 
     renderCart = data => {
+
 
         if (!_.isEmpty(data)) {
 
@@ -193,7 +196,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
 
     return {
-        cartData: state.cart
+        cartData: state.cart,
+        userData: state.user
     }
 }
 export default connect(mapStateToProps)(cart);

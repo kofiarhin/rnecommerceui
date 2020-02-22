@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity } from 'react-native'
-import mainStyles from "../../../styles";
+import { Text, View, Button } from 'react-native'
 import { connect } from "react-redux";
-import { logoutUser, getUser } from "../../../actions";
-import AsyncStorage from '@react-native-community/async-storage';
+import { getUser, logoutUser, clearCart, getCart } from "../../../actions";
 import _ from "lodash";
+
 
 class settings extends Component {
 
@@ -13,52 +12,38 @@ class settings extends Component {
         this.props.dispatch(getUser());
     }
 
-
     handleLogout = () => {
 
         this.props.dispatch(logoutUser());
-
-        this.props.navigation.navigate("Login")
+        this.props.dispatch(getUser());
+        this.props.dispatch(clearCart())
+        this.props.dispatch(getCart());
+        this.props.navigation.navigate("Home")
     }
 
     renderUser = data => {
 
-        if (!_.isEmpty(data)) {
+        if (data && data.length > 0) {
 
             let user = JSON.parse(data);
             return <View>
 
-                <Text> Name: {user.name} </Text>
-            </View>
-        }
-    }
-    render() {
-
-        console.log(this.props)
-        return (
-            <View>
-                <Text style={[mainStyles.text, {
-                    fontSize: 40,
+                <Text style={{
+                    fontSize: 30,
+                    marginBottom: 20,
                     textAlign: "center",
                     marginTop: 20
-                }]}> Setttings </Text>
+                }}> Hi {user.name} </Text>
 
+                <Button title="Logout" onPress={() => this.handleLogout()} />
+            </View>
+        }
+
+    }
+    render() {
+        return (
+            <View>
                 {this.renderUser(this.props.userData.userData)}
-
-                <TouchableOpacity onPress={() => this.handleLogout()} style={{
-                    backgroundColor: "blue",
-                    padding: 20
-                }}>
-
-
-
-                    <Text style={{
-                        textAlign: "center",
-                        color: "white"
-                    }}> Logout  </Text>
-                </TouchableOpacity>
-
-
             </View>
         )
     }
@@ -67,8 +52,8 @@ class settings extends Component {
 const mapStateToProps = state => {
 
     return {
-
         userData: state.user
     }
 }
-export default connect(mapStateToProps)(settings) 
+
+export default connect(mapStateToProps)(settings)

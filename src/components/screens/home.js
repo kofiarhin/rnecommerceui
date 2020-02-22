@@ -8,9 +8,8 @@ import { connect } from "react-redux";
 import data from "../../../data";
 import _ from "lodash";
 
-import { getProducts, getCart, searchProduct } from "../../../actions";
-import { timing } from 'react-native-reanimated';
-
+import { getProducts, getCart, searchProduct, getUser } from "../../../actions";
+import ItemUnit from "../widgets/itemUnit";
 
 class Home extends Component {
 
@@ -27,6 +26,7 @@ class Home extends Component {
         // load products
         this.props.dispatch(getProducts())
         this.props.dispatch(getCart())
+        this.props.dispatch(getUser())
 
     }
 
@@ -40,38 +40,7 @@ class Home extends Component {
         if (items && items.length > 0) {
 
             return items.map((item, index) => {
-
-                return <View key={index} style={styles.itemUnit}>
-
-                    {/* cover */}
-                    <View style={styles.itemCoverContainer}>
-                        <Image source={{ uri: item.cover }}
-                            style={styles.itemCover}
-                            resizeMode="contain"
-                        />
-                    </View>
-                    {/* end cover */}
-
-                    {/* content */}
-                    <View style={styles.content}>
-
-                        <View style={styles.desc}>
-                            <Text numberOfLines={1} style={[styles.text, styles.name]}> {item.name}</Text>
-                            <Text style={[styles.text, styles.price]}> ${item.price}</Text>
-                            <Text style={[styles.text, styles.color]}> {item.color}</Text>
-
-                        </View>
-
-                        <View>
-
-                            <TouchableOpacity style={styles.view} onPress={() => console.log("go to product details")}>
-                                <Text style={[styles.text, styles.viewText]} onPress={() => this.handleDetails(item)}> View Product</Text>
-                            </TouchableOpacity>
-                        </View>
-
-                    </View>
-                    {/* end content */}
-                </View>
+                return <ItemUnit key={index.toString} item={item} index={index} handleDetails={item => this.handleDetails(item)} />
             })
         }
     }

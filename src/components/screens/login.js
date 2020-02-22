@@ -40,17 +40,29 @@ class Login extends Component {
 
     handleSubmit = () => {
 
+        console.log("handle something")
+
         let userData = {
-            email: "admin",
             name: "admin",
-            password: "admin"
+            username: "admin",
+            password: "password"
         }
 
-        let dataToStore = JSON.stringify(userData);
+        let data = JSON.stringify(userData);
+        this.props.dispatch(loginUser(data));
+        this.props.navigation.navigate("Home");
 
-        this.props.dispatch(loginUser(dataToStore));
+        // let userData = {
+        //     email: "admin",
+        //     name: "admin",
+        //     password: "admin"
+        // }
 
-        this.props.navigation.navigate("Home")
+        // let dataToStore = JSON.stringify(userData);
+
+        // this.props.dispatch(loginUser(dataToStore));
+
+        // this.props.navigation.navigate("Home")
 
 
 
